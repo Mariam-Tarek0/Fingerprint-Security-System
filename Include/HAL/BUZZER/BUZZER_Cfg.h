@@ -1,0 +1,10 @@
+/*
+ * BUZZER_Cfg.h
+ */
+#ifndef INCLUDE_HAL_BUZZER_BUZZER_CFG_H_
+#define INCLUDE_HAL_BUZZER_BUZZER_CFG_H_
+
+#define BUZZ_u8_PORT  DIO_u8_PORTD
+#define BUZZ_u8_PIN   DIO_u8_PIN7
+
+#endif

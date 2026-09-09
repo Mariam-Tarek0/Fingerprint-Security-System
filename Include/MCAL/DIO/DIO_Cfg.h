@@ -1,0 +1,195 @@
+/*
+ * DIO_Cfg.h - PIN MAP FOR THE FINGERPRINT SECURITY SYSTEM
+ * -----------------------------------------------------------------------
+ * PORTA : LCD control (RS,RW,E) + push buttons + buzzer
+ * PORTB : LCD 8-bit data bus (D0..D7) - fully dedicated, nothing else here
+ * PORTC : TWI (SCL/SDA, hardware-fixed) + LEDs/motor control outputs
+ * PORTD : USART (RXD/TXD, hardware-fixed) - to the AS608 sensor
+ *
+ *   PA0 = LCD RS         PB0..PB7 = LCD DATA D0..D7   PC0 = SCL (TWI)     PD0 = RXD (AS608 TX)
+ *   PA1 = LCD RW                                       PC1 = SDA (TWI)     PD1 = TXD (AS608 RX)
+ *   PA2 = LCD E                                         PC2 = LED1          PD2..PD7 = unused
+ *   PA3 = BTN_UP                                         PC3 = LED2
+ *   PA4 = BTN_DOWN                                        PC4 = LED3
+ *   PA5 = BTN_SELECT                                       PC5 = MOTOR
+ *   PA6 = BTN_BACK                                          PC6 = unused
+ *   PA7 = BUZZER                                             PC7 = unused
+ * -----------------------------------------------------------------------
+ */
+
+//#ifndef MCAL_DIO_DIO_CFG_H_
+//#define MCAL_DIO_DIO_CFG_H_
+//
+///* ---------------- Directions ---------------- */
+//
+///* PORTA: RS,RW,E = out ; 4 buttons = in ; buzzer = out */
+//#define DIO_u8_PA0_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT   /* LCD RS */
+//#define DIO_u8_PA1_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT   /* LCD RW */
+//#define DIO_u8_PA2_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT   /* LCD E  */
+//#define DIO_u8_PA3_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT    /* BTN_UP */
+//#define DIO_u8_PA4_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT    /* BTN_DOWN */
+//#define DIO_u8_PA5_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT    /* BTN_SELECT */
+//#define DIO_u8_PA6_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT    /* BTN_BACK */
+//#define DIO_u8_PA7_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT   /* BUZZER */
+//
+///* PORTB: entire port = LCD 8-bit data bus, all outputs */
+//#define DIO_u8_PB0_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT
+//#define DIO_u8_PB1_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT
+//#define DIO_u8_PB2_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT
+//#define DIO_u8_PB3_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT
+//#define DIO_u8_PB4_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT
+//#define DIO_u8_PB5_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT
+//#define DIO_u8_PB6_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT
+//#define DIO_u8_PB7_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT
+//
+///* PORTC: PC0/PC1 = TWI (input, internal pull-up; hardware takes over once TWEN=1),
+// *        PC2..PC5 = LED1/LED2/LED3/MOTOR outputs, PC6/PC7 spare */
+//#define DIO_u8_PC0_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT    /* SCL */
+//#define DIO_u8_PC1_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT    /* SDA */
+//#define DIO_u8_PC2_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT   /* LED1 */
+//#define DIO_u8_PC3_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT   /* LED2 */
+//#define DIO_u8_PC4_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT   /* LED3 */
+//#define DIO_u8_PC5_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT   /* MOTOR */
+//#define DIO_u8_PC6_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT
+//#define DIO_u8_PC7_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT
+//
+///* PORTD: PD0=RXD (input), PD1=TXD (output) - hardware USART overrides these
+// * automatically once RXEN/TXEN are set, but we configure them sensibly anyway.
+// * PD2..PD7 unused/spare. */
+//#define DIO_u8_PD0_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT    /* RXD */
+//#define DIO_u8_PD1_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT   /* TXD */
+//#define DIO_u8_PD2_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT
+//#define DIO_u8_PD3_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT
+//#define DIO_u8_PD4_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT
+//#define DIO_u8_PD5_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT
+//#define DIO_u8_PD6_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT
+//#define DIO_u8_PD7_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT
+//
+///* ---------------- Initial values ---------------- */
+//
+//#define DIO_u8_PA0_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+//#define DIO_u8_PA1_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+//#define DIO_u8_PA2_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+//#define DIO_u8_PA3_INTIAL_VALUE   DIO_u8_INPUT_PULLUP   /* buttons wired to GND when pressed */
+//#define DIO_u8_PA4_INTIAL_VALUE   DIO_u8_INPUT_PULLUP
+//#define DIO_u8_PA5_INTIAL_VALUE   DIO_u8_INPUT_PULLUP
+//#define DIO_u8_PA6_INTIAL_VALUE   DIO_u8_INPUT_PULLUP
+//#define DIO_u8_PA7_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+//
+//#define DIO_u8_PB0_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+//#define DIO_u8_PB1_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+//#define DIO_u8_PB2_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+//#define DIO_u8_PB3_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+//#define DIO_u8_PB4_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+//#define DIO_u8_PB5_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+//#define DIO_u8_PB6_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+//#define DIO_u8_PB7_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+//
+//#define DIO_u8_PC0_INTIAL_VALUE   DIO_u8_INPUT_PULLUP
+//#define DIO_u8_PC1_INTIAL_VALUE   DIO_u8_INPUT_PULLUP
+//#define DIO_u8_PC2_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+//#define DIO_u8_PC3_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+//#define DIO_u8_PC4_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+//#define DIO_u8_PC5_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+//#define DIO_u8_PC6_INTIAL_VALUE   DIO_u8_INPUT_FLOATING
+//#define DIO_u8_PC7_INTIAL_VALUE   DIO_u8_INPUT_FLOATING
+//
+//#define DIO_u8_PD0_INTIAL_VALUE   DIO_u8_INPUT_FLOATING
+//#define DIO_u8_PD1_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+//#define DIO_u8_PD2_INTIAL_VALUE   DIO_u8_INPUT_FLOATING
+//#define DIO_u8_PD3_INTIAL_VALUE   DIO_u8_INPUT_FLOATING
+//#define DIO_u8_PD4_INTIAL_VALUE   DIO_u8_INPUT_FLOATING
+//#define DIO_u8_PD5_INTIAL_VALUE   DIO_u8_INPUT_FLOATING
+//#define DIO_u8_PD6_INTIAL_VALUE   DIO_u8_INPUT_FLOATING
+//#define DIO_u8_PD7_INTIAL_VALUE   DIO_u8_INPUT_FLOATING
+//
+//#endif /* MCAL_DIO_DIO_CFG_H_ */
+
+
+#ifndef MCAL_DIO_DIO_CFG_H_
+#define MCAL_DIO_DIO_CFG_H_
+
+/* ---------------- Directions ---------------- */
+
+/* PORTA: RS,RW,E = out ; 4 buttons = in ; buzzer = out */
+#define DIO_u8_PA0_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT   /* LCD DATA */
+#define DIO_u8_PA1_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT   /* LCD DATA */
+#define DIO_u8_PA2_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT   /* LCD DATA */
+#define DIO_u8_PA3_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT    /* LCD DATA */
+#define DIO_u8_PA4_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT    /* LCD DATA */
+#define DIO_u8_PA5_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT    /* LCD DATA */
+#define DIO_u8_PA6_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT    /* LCD DATA */
+#define DIO_u8_PA7_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT   /* LCD DATA */
+
+/* PORTB: entire port = LCD 8-bit data bus, all outputs */
+#define DIO_u8_PB0_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT	 /* LCD RS */
+#define DIO_u8_PB1_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT	 /* LCD RW */
+#define DIO_u8_PB2_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT	 /* LCD E  */
+#define DIO_u8_PB3_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT
+#define DIO_u8_PB4_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT
+#define DIO_u8_PB5_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT	/* LED1 */
+#define DIO_u8_PB6_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT	/* LED2 */
+#define DIO_u8_PB7_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT	/* LED3 */
+
+/* PORTC: PC0/PC1 = TWI (input, internal pull-up; hardware takes over once TWEN=1),
+ *        PC2..PC5 = LED1/LED2/LED3/MOTOR outputs, PC6/PC7 spare */
+#define DIO_u8_PC0_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT    /* SCL */
+#define DIO_u8_PC1_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT    /* SDA */
+#define DIO_u8_PC2_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT
+#define DIO_u8_PC3_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT
+#define DIO_u8_PC4_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT
+#define DIO_u8_PC5_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT
+#define DIO_u8_PC6_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT
+#define DIO_u8_PC7_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT
+
+/* PORTD: PD0=RXD (input), PD1=TXD (output) - hardware USART overrides these
+ * automatically once RXEN/TXEN are set, but we configure them sensibly anyway.
+ * PD2..PD7 unused/spare. */
+#define DIO_u8_PD0_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT    /* RXD */
+#define DIO_u8_PD1_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT   /* TXD */
+#define DIO_u8_PD2_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT
+#define DIO_u8_PD3_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT	/* BTN_UP */
+#define DIO_u8_PD4_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT	/* BTN_DOWN */
+#define DIO_u8_PD5_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT	/* BTN_SELECT */
+#define DIO_u8_PD6_INTIAL_DIRECTION   DIO_u8_INTIAL_INPUT	/* BTN_BACK */
+#define DIO_u8_PD7_INTIAL_DIRECTION   DIO_u8_INTIAL_OUTPUT	/* BUZZER */
+
+/* ---------------- Initial values ---------------- */
+
+#define DIO_u8_PA0_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+#define DIO_u8_PA1_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+#define DIO_u8_PA2_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+#define DIO_u8_PA3_INTIAL_VALUE   DIO_u8_OUTPUT_LOW   /* buttons wired to GND when pressed */
+#define DIO_u8_PA4_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+#define DIO_u8_PA5_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+#define DIO_u8_PA6_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+#define DIO_u8_PA7_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+
+#define DIO_u8_PB0_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+#define DIO_u8_PB1_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+#define DIO_u8_PB2_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+#define DIO_u8_PB3_INTIAL_VALUE   DIO_u8_INPUT_FLOATING
+#define DIO_u8_PB4_INTIAL_VALUE   DIO_u8_INPUT_FLOATING
+#define DIO_u8_PB5_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+#define DIO_u8_PB6_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+#define DIO_u8_PB7_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+
+#define DIO_u8_PC0_INTIAL_VALUE   DIO_u8_INPUT_PULLUP
+#define DIO_u8_PC1_INTIAL_VALUE   DIO_u8_INPUT_PULLUP
+#define DIO_u8_PC2_INTIAL_VALUE   DIO_u8_INPUT_FLOATING
+#define DIO_u8_PC3_INTIAL_VALUE   DIO_u8_INPUT_FLOATING
+#define DIO_u8_PC4_INTIAL_VALUE   DIO_u8_INPUT_FLOATING
+#define DIO_u8_PC5_INTIAL_VALUE   DIO_u8_INPUT_FLOATING
+#define DIO_u8_PC6_INTIAL_VALUE   DIO_u8_INPUT_FLOATING
+#define DIO_u8_PC7_INTIAL_VALUE   DIO_u8_INPUT_FLOATING
+
+#define DIO_u8_PD0_INTIAL_VALUE   DIO_u8_INPUT_FLOATING
+#define DIO_u8_PD1_INTIAL_VALUE   DIO_u8_OUTPUT_LOW
+#define DIO_u8_PD2_INTIAL_VALUE   DIO_u8_INPUT_FLOATING
+#define DIO_u8_PD3_INTIAL_VALUE   DIO_u8_INPUT_PULLUP
+#define DIO_u8_PD4_INTIAL_VALUE   DIO_u8_INPUT_PULLUP
+#define DIO_u8_PD5_INTIAL_VALUE   DIO_u8_INPUT_PULLUP
+#define DIO_u8_PD6_INTIAL_VALUE   DIO_u8_INPUT_PULLUP
+#define DIO_u8_PD7_INTIAL_VALUE   DIO_u8_OUTPUT_HIGH
+
+#endif /* MCAL_DIO_DIO_CFG_H_ */
